@@ -264,7 +264,7 @@ if($linhas > 0){
 									<li class="<?php echo $receber ?>"><a href="receber"><i class="fa fa-angle-right"></i> Contas à Receber</a></li>
 
 									<li class="<?php echo $compras ?>"><a href="compras"><i class="fa fa-angle-right"></i> Compras</a></li>
-
+<!-- junior -->
 									<li class="<?php echo $vendas ?>"><a href="vendas"><i class="fa fa-angle-right"></i> Vendas</a></li>
 
 									<li class="<?php echo $lista_vendas ?>"><a href="lista_vendas"><i class="fa fa-angle-right"></i> Lista de Vendas</a></li>
@@ -285,7 +285,7 @@ if($linhas > 0){
 
 							<li class="treeview <?php echo $orcamentos ?>">
 								<a href="orcamentos">
-									<i class="fa fa-pencil"></i> <span>Orçamentos</span>
+									<i class="fa fa-pencil"></i> <span>Cadastro de vendas</span>
 								</a>
 							</li>
 
@@ -294,16 +294,16 @@ if($linhas > 0){
 							<li class="treeview <?php echo $menu_os ?>">
 								<a href="#">
 									<i class="fa fa-sun-o"></i>
-									<span>Receitas / OS</span>
+									<span>Ordem de serviço</span>
 									<i class="fa fa-angle-left pull-right"></i>
 								</a>
 								<ul class="treeview-menu">
 								
-									<li class="<?php echo $os ?>"><a href="os"><i class="fa fa-angle-right"></i> Receitas Por Data</a></li>
+									<li class="<?php echo $os ?>"><a href="os"><i class="fa fa-angle-right"></i> OS/Entrada</a></li>
 
-									<li class="<?php echo $os_status ?>"><a href="os_status"><i class="fa fa-angle-right"></i> Receitas Por Status</a></li>
+									<li class="<?php echo $os_status ?>"><a href="os_status"><i class="fa fa-angle-right"></i> OS Por Status</a></li>
 
-									<li class="<?php echo $os_tecnico ?>"><a href="os_tecnico"><i class="fa fa-angle-right"></i> Minhas Receitas</a></li>
+									<li class="<?php echo $os_tecnico ?>"><a href="os_tecnico"><i class="fa fa-angle-right"></i> Minhas OS</a></li>
 									
 								</ul>
 							</li>

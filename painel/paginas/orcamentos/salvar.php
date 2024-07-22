@@ -8,7 +8,8 @@ $data_atual = date('Y-m-d');
 
 $data_entrega = $_POST['data_entrega'];
 $cliente = @$_POST['cliente'];
-$dias_validade = $_POST['dias_validade'];
+// $dias_validade = $_POST['dias_validade'];
+ $valor_entrada = $_POST['valor_entrada'];
 $desconto = $_POST['desconto'];
 $tipo_desconto = $_POST['tipo_desconto'];
 $obs = $_POST['obs'];
@@ -78,19 +79,25 @@ if($frete == ""){
 	$frete = 0;
 }
 
+if ($valor_entrada == ""){
+     $valor_entrada = 0;
+}
+
 if($tipo_desconto == "%"){
-	$total_com_desconto = $total_final - ($total_final * $desconto / 100) + $frete;
+	$total_com_desconto = $total_final - $valor_entrada - ($total_final * $desconto / 100) + $frete;
 }else{
-	$total_com_desconto = $total_final - $desconto + $frete;
+	$total_com_desconto = $total_final - $desconto - $valor_entrada + $frete;
 }
 
 
 
 if($id == ""){
-	$query = $pdo->prepare("INSERT INTO $tabela SET data = curDate(), cliente = '$cliente', data_entrega = '$data_entrega', dias_validade = '$dias_validade', valor = '$total_final', desconto = '$desconto', tipo_desconto = '$tipo_desconto', subtotal = '$total_com_desconto', funcionario = '$id_usuario', status = 'Pendente', total_produtos = '$total_produtos', total_servicos = '$total_servicos', obs = :obs, frete = :frete");
+	// $query = $pdo->prepare("INSERT INTO $tabela SET data = curDate(), cliente = '$cliente', data_entrega = '$data_entrega', dias_validade = '$dias_validade', valor = '$total_final', desconto = '$desconto', tipo_desconto = '$tipo_desconto', subtotal = '$total_com_desconto', funcionario = '$id_usuario', status = 'Pendente', total_produtos = '$total_produtos', total_servicos = '$total_servicos', obs = :obs, frete = :frete");
+	$query = $pdo->prepare("INSERT INTO $tabela SET data = curDate(), valor_entrada = '$valor_entrada', cliente = '$cliente', data_entrega = '$data_entrega', valor = '$total_final', desconto = '$desconto', tipo_desconto = '$tipo_desconto', subtotal = '$total_com_desconto', funcionario = '$id_usuario', status = 'Pendente', total_produtos = '$total_produtos', total_servicos = '$total_servicos', obs = :obs, frete = :frete");
 
 }else{
-	$query = $pdo->prepare("UPDATE $tabela SET cliente = '$cliente', data_entrega = '$data_entrega', dias_validade = '$dias_validade', valor = '$total_final', desconto = '$desconto', tipo_desconto = '$tipo_desconto', subtotal = '$total_com_desconto', funcionario = '$id_usuario',  total_produtos = '$total_produtos', total_servicos = '$total_servicos', obs = :obs, frete = :frete where id = '$id'");
+	// $query = $pdo->prepare("UPDATE $tabela SET cliente = '$cliente', data_entrega = '$data_entrega', dias_validade = '$dias_validade', valor = '$total_final', desconto = '$desconto', tipo_desconto = '$tipo_desconto', subtotal = '$total_com_desconto', funcionario = '$id_usuario',  total_produtos = '$total_produtos', total_servicos = '$total_servicos', obs = :obs, frete = :frete where id = '$id'");
+	$query = $pdo->prepare("UPDATE $tabela SET valor_entrada = '$valor_entrada', cliente = '$cliente', data_entrega = '$data_entrega', valor = '$total_final', desconto = '$desconto', tipo_desconto = '$tipo_desconto', subtotal = '$total_com_desconto', funcionario = '$id_usuario',  total_produtos = '$total_produtos', total_servicos = '$total_servicos', obs = :obs, frete = :frete where id = '$id'");
 
 	
 }
@@ -127,7 +134,7 @@ if($api_whatsapp == 'Sim'){
 	
 		$mensagem .= 'Nome: *'.$nome_cliente.'* %0A';
 		$mensagem .= 'Previsão de Entrega: *'.$data_entregaF.'* %0A';
-		$mensagem .= 'Validade do Orçamento: *'.$dias_validade.' Dias* %0A%0A';
+		// $mensagem .= 'Validade do Orçamento: *'.$dias_validade.' Dias* %0A%0A';
 
 		$mensagem .= '_Segue abaixo o PDF com o Detalhamento_ %0A';
 

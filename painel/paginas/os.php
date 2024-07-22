@@ -14,7 +14,7 @@ if(@$os == 'ocultar'){
 	<div class="col-md-10">
 		
 		<div style="float:left; margin-right:35px">
-			<button onclick="inserir()" type="button" class="btn btn-primary btn-flat btn-pri"><i class="fa fa-plus" aria-hidden="true"></i>Nova Receita</button>
+			<button onclick="inserir()" type="button" class="btn btn-primary btn-flat btn-pri"><i class="fa fa-plus" aria-hidden="true"></i>Nova OS</button>
 		</div>
 
 	

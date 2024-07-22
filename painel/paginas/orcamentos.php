@@ -13,7 +13,7 @@ if(@$orcamentos == 'ocultar'){
 	<div class="col-md-10">
 		
 		<div style="float:left; margin-right:35px">
-			<button onclick="inserir()" type="button" class="btn btn-primary btn-flat btn-pri"><i class="fa fa-plus" aria-hidden="true"></i>Orçamento</button>
+			<button onclick="inserir()" type="button" class="btn btn-primary btn-flat btn-pri"><i class="fa fa-plus" aria-hidden="true"></i>Vendas</button>
 		</div>
 
 		<form method="POST" action="rel/lista_orcamentos_class.php" target="_blank">
@@ -33,7 +33,7 @@ if(@$orcamentos == 'ocultar'){
 		<div class="esc" style="float:left; margin-right:20px">
 			<select class="form-control" aria-label="Default select example" name="status" id="status" onchange="buscar()">
 				<option value="">Todos</option>
-				<option value="Pendente">Pendentes</option>
+				 <option value="Pendente">Pendentes</option> -->
 				<option value="Aprovado">Aprovados</option>
 				
 			</select>
@@ -166,12 +166,12 @@ if(@$orcamentos == 'ocultar'){
 							</div>						
 						</div>
 
-						<div class="col-md-2">						
+						<!-- <div class="col-md-2">						
 							<div class="form-group"> 
 								<label>Validade</label> 
 								<input class="form-control" type="number" name="dias_validade" id="dias_validade" placeholder="5 Dias" required>
 							</div>						
-						</div>
+						</div> -->
 
 						<div class="col-md-2">						
 							<div class="form-group"> 
@@ -188,7 +188,7 @@ if(@$orcamentos == 'ocultar'){
 									<option value="Valor">R$ Valor</option>
 								</select>
 							</div>						
-						</div>
+						</div>					
 
 						<div class="col-md-2">						
 							<div class="form-group"> 
@@ -199,12 +199,35 @@ if(@$orcamentos == 'ocultar'){
 
 						<div class="col-md-2">						
 							<div class="form-group"> 
+								<label>Valor de entrada</label> 
+								<input class="form-control" type="number" name="valor_entrada" id="valor_entrada"  onkeyup="totalizar()">
+							</div>						
+						</div>
+
+						
+						<div class="col-md-2">						
+							<div class="form-group"> 
 								<label>SubTotal</label> 
 								<input class="form-control" type="text" name="subtotal" id="subtotal" readonly >
 							</div>						
 						</div>
 
-						
+						<div class="col-md-2">					
+							<label>Forma de Pagamento</label> 
+								<select class="form-control" name="saida" id="saida" style="width:100%; height:32px"> 
+									<?php 
+									$query = $pdo->query("SELECT * FROM formas_pgto order by id asc");
+									$res = $query->fetchAll(PDO::FETCH_ASSOC);
+									for($i=0; $i < @count($res); $i++){
+										foreach ($res[$i] as $key => $value){}
+
+											?>	
+										<option value="<?php echo $res[$i]['nome'] ?>"><?php echo $res[$i]['nome'] ?></option>
+
+									<?php } ?>
+
+								</select>
+						</div>
 
 
 					</div>	
@@ -735,7 +758,7 @@ function excluirServico(id){
 }
 
 
-
+// salvar vendas
 
 $("#form_orcamento").submit(function () {
 
@@ -787,8 +810,6 @@ $("#form_orcamento").submit(function () {
 
 });
 
-
-
 function buscar(){
 	var dataInicial = $('#dataInicial').val();
 	var dataFinal = $('#dataFinal').val();
@@ -803,12 +824,13 @@ function totalizar(){
 	var desconto = $('#desconto').val();
 	var tipo_desconto = $('#tipo_desconto').val();
 	var frete = $('#frete').val();
+	var valor_entrada = $('#valor_entrada').val();
 	var id = $("#id").val();
 
 	$.ajax({
         url: 'paginas/' + pag + "/totalizar.php",
         method: 'POST',
-        data: {desconto, tipo_desconto, frete, id},
+        data: {desconto, tipo_desconto, frete,valor_entrada, id},
         dataType: "html",
 
         success:function(result){   

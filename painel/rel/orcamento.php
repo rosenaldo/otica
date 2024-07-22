@@ -20,6 +20,7 @@ $total_produtos = $res[0]['total_produtos'];
 $total_servicos = $res[0]['total_servicos'];
 $funcionario = $res[0]['funcionario'];
 $frete = $res[0]['frete'];
+$valor_entrada = $res[0]['valor_entrada'];
 
 
 $dataF = implode('/', array_reverse(@explode('-', $data)));
@@ -124,7 +125,7 @@ if($marca_dagua == 'Sim'){ ?>
 				
 				<tr id="cabeca" style="margin-left: 0px; background-color:#f2f0f0">
 					<td style="width:33%"><b>DATA : <?php echo $dataF ?></b> </td>
-					<td style="width:33%"><b>VALIDADE DA PROPOSTA : <?php echo $dias_validade ?> DIAS</b></td>
+					<!-- <td style="width:33%"><b>VALIDADE DA PROPOSTA : <?php echo $dias_validade ?> DIAS</b></td> -->					 
 					<td style="width:34%"><b>PREVISÃO DE ENTREGA : <?php echo $data_entregaF ?></b></td>			
 					
 					
@@ -325,6 +326,12 @@ $nome_produto = $res2[0]['nome'];
 		</div>
 		<?php } ?>
 
+		<?php if($valor_entrada > 0){ ?>
+		<div align="right" style="margin-top: 4px; font-size:10px;">
+			<span><b>VALOR DE ENTRADA:</b> <?php echo $valor_reais ?><?php echo $valor_entrada ?></span>
+		</div>
+		<?php } ?>
+
 		<?php if($frete > 0){ ?>
 		<div align="right" style="margin-top: 4px; font-size:10px;">
 			<span><b>FRETE: </b>R$ <?php echo $freteF ?></span>
@@ -342,7 +349,7 @@ $nome_produto = $res2[0]['nome'];
 			Autorizo a confecção dos óculos descriminados nesta nota, que sendo em bem específico e com medidas próprias não possui nenhuma utilidade para um terceiro.
 			Estou ciente que não poderei desistir ou cancelar a compra após a assinatura deste documento, e reconheço como dívida a importância acima em favor da ÓTICA VENEZZA LTDA.
 			Sendo inteiramente responsável por retirar a mercadoria no endereço acima e na data estabelecida.
-			Estou ciente que se não o fizer, após 10 (dez) dias a duplicata correspondente será descontada em banco e tomada todas as medidas cabíveis. As armações de 1 ano de garantia a partir desta data, Lentes orgânicas ou C89 não têm garantia de quebra ou risco.
+			Estou ciente que se não o fizer, após 10 (dez) dias a duplicata correspondente será descontada em banco e tomada todas as medidas cabíveis. As armações de 1 ano de garantia a partir desta data, Lentes orgânicas ou CR39 não têm garantia de quebra ou risco.
 			Lentes do material Trivex 2 anos e multifocais policarbonatos possuem garantia de um ano de quebra, mas não contra risco. Não nos responsabilizamos por armações não compradas na loja.
 		</p>
 

@@ -10,6 +10,7 @@ $id_usuario = @$_SESSION['id'];
 $desconto = @$_POST['desconto'];
 $tipo_desconto = @$_POST['tipo_desconto'];
 $frete = @$_POST['frete'];
+$valor_entrada = @$_POST['valor_entrada'];
 $id = @$_POST['id'];
 
 $total_produtos = 0;
@@ -46,6 +47,7 @@ $servicos = @count($res);
 
 $total_final = $total_produtos + $total_servicos;
 
+
 if($desconto == ""){
 	$desconto = 0;
 }
@@ -54,10 +56,14 @@ if($frete == ""){
 	$frete = 0;
 }
 
+if( $valor_entrada == ""){
+	$valor_entrada = 0;
+}
+
 if($tipo_desconto == "%"){
-	$total_com_desconto = $total_final - ($total_final * $desconto / 100) + $frete;
+	$total_com_desconto = $total_final - $valor_entrada - ($total_final * $desconto / 100) + $frete;
 }else{
-	$total_com_desconto = $total_final - $desconto + $frete;
+	$total_com_desconto = $total_final - $valor_entrada - $desconto + $frete;
 }
 
 $total_finalF = number_format($total_final, 2, ',', '.');
