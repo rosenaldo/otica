@@ -391,3 +391,9 @@ CREATE TABLE `cargos` (
   `nome` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+
+
+ALTER TABLE omnidb.receber ADD valor_entrada decimal(8,2) DEFAULT NULL NULL;
+ALTER TABLE omnidb.orcamentos ADD saida varchar(50) DEFAULT NULL NULL;
+ALTER TABLE omnidb.orcamentos ADD vendedor int(11) DEFAULT NULL NULL;

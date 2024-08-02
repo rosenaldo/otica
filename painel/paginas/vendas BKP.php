@@ -29,6 +29,16 @@ $produtos = @count($res2);
 if($produtos > 0){
 ?>
 
+<a href="#" onclick="listar('<?php echo $id ?>')">
+<div class="col-md-3 widget" style="margin-right: 5px; margin-bottom: 5px; ">			<div class="r3_counter_box" style="min-height: 60px; padding:10px">
+				<i class="pull-left fa " style="background-image:url('images/categorias/<?php echo $foto ?>'); background-size: cover;"></i>
+				<div class="stats">
+					<h5 style="font-size:14px"><strong><?php echo $nomeF ?>	</strong></h5>
+					<span style="font-size:13px"><?php echo $produtos ?> Produtos</span>
+					</div>	
+			</div>
+</div>
+ </a>
 <?php } } } else{ echo 'Cadastre uma Categoria!'; } ?>
 
 	</div>
@@ -51,7 +61,8 @@ if($produtos > 0){
 
 
 
-
+<div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title" id="exampleModalLabel"><span id="titulo_inserir"></span></h4>
@@ -173,7 +184,7 @@ if($produtos > 0){
 						<div class="col-md-12" style="margin-top: -10px" align="right">
 							<button id="btn_limpar" onclick="limparVenda()" type="button" class="btn btn-danger">Limpar Venda</button>							
 
-						junior		<button id="btn_venda" type="submit" class="btn btn-success">Fechar Venda</button>
+								<button id="btn_venda" type="submit" class="btn btn-success">Fechar Venda</button>
 					<img id="img_loading" src="../img/loading.gif" width="40px" style="display:none">
 							</div>
 					</div>
@@ -190,8 +201,8 @@ if($produtos > 0){
 			
 			</form>
 		</div>
-
-
+	</div>
+</div>
 
 
 

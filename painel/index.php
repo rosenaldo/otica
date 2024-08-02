@@ -265,7 +265,7 @@ if($linhas > 0){
 
 									<li class="<?php echo $compras ?>"><a href="compras"><i class="fa fa-angle-right"></i> Compras</a></li>
 <!-- junior -->
-									<li class="<?php echo $vendas ?>"><a href="vendas"><i class="fa fa-angle-right"></i> Vendas</a></li>
+									<!-- <li class="<?php echo $vendas ?>"><a href="vendas"><i class="fa fa-angle-right"></i> Vendas</a></li> -->
 
 									<li class="<?php echo $lista_vendas ?>"><a href="lista_vendas"><i class="fa fa-angle-right"></i> Lista de Vendas</a></li>
 

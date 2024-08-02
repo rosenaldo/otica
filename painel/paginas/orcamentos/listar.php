@@ -47,6 +47,7 @@ echo <<<HTML
 				<th class="esc">Valor</th> 
 				<th class="esc">Desconto</th>
 				<th class="esc">Frete</th>
+				<th class="esc">Valor entrada</th>
 				<th class="esc">Subtotal</th>
 				<th class="esc">Efetuado Por</th>					
 				<th>Ações</th>
@@ -71,6 +72,7 @@ $total_produtos = $res[$i]['total_produtos'];
 $total_servicos = $res[$i]['total_servicos'];
 $funcionario = $res[$i]['funcionario'];
 $frete = $res[$i]['frete'];
+$valor_entrada = $res[$i]['valor_entrada'];
 
 
 $dataF = implode('/', array_reverse(@explode('-', $data)));
@@ -79,6 +81,7 @@ $data_entregaF = implode('/', array_reverse(@explode('-', $data_entrega)));
 $valorF = number_format($valor, 2, ',', '.');
 $subtotalF = number_format($subtotal, 2, ',', '.');
 $freteF = number_format($frete, 2, ',', '.');
+$valor_entradaF = number_format($valor_entrada, 2, ',', '.');
 $total_produtosF = number_format($total_produtos, 2, ',', '.');
 $total_servicosF = number_format($total_servicos, 2, ',', '.');
 
@@ -173,11 +176,12 @@ echo <<<HTML
 				<td class="esc">R$ {$valorF}</td>
 				<td class="esc">{$valor_reais} {$descontoF}{$valor_porcent}</td>
 				<td class="esc">R$ {$freteF}</td>
+				<td class="esc">R$ {$valor_entradaF}</td>
 				<td class="esc text-danger">R$ {$subtotalF}</td>
 				<td class="esc">{$nome_usu_lanc}</td>
 				
 				<td>
-					<big><a class="{$ocultar}" href="#" onclick="editar('{$id}', '{$cliente}', '{$data_entrega}','{$dias_validade}','{$valor}','{$desconto}','{$tipo_desconto}','{$subtotal}', '{$obs}','{$frete}')" title="Editar Dados"><i class="fa fa-edit text-primary "></i></a></big>
+					<big><a class="{$ocultar}" href="#" onclick="editar('{$id}', '{$cliente}', '{$data_entrega}','{$dias_validade}','{$valor}','{$desconto}','{$tipo_desconto}','{$subtotal}', '{$obs}','{$frete}','{$valor_entrada}')" title="Editar Dados"><i class="fa fa-edit text-primary "></i></a></big>
 
 				
 				
@@ -255,7 +259,7 @@ HTML;
 
 
 
-	function editar(id, cliente, data_entrega, dias_validade, valor, desconto, tipo_desconto, subtotal, obs, frete){
+	function editar(id, cliente, data_entrega, dias_validade, valor, desconto, tipo_desconto, subtotal, obs, frete, valor_entrada){
 
 		if(cliente == 0){
 			cliente = "";
@@ -271,6 +275,7 @@ HTML;
 		$('#tipo_desconto').val(tipo_desconto).change();
 		$('#subtotal').val(subtotal);
 		$('#frete').val(frete);
+		$('#valor_entrada').val(valor_entrada);
 		$('#obs').val(obs);		
 
 		//$('#btn_cliente').hide();					
@@ -296,6 +301,7 @@ HTML;
 		$('#data_entrega').val('<?=$data_atual?>');			
 		$('#desconto').val('');
 		$('#frete').val('');
+		$('#valor_entrada').val('');
 		$('#obs').val('');
 		$('#dias_validade').val('');
 		listarServicos()

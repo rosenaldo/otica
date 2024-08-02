@@ -14,6 +14,8 @@ $desconto = $_POST['desconto'];
 $tipo_desconto = $_POST['tipo_desconto'];
 $obs = $_POST['obs'];
 $frete = $_POST['frete'];
+$saida = $_POST['saida'];
+$vendedor = $_POST['vendedor'];
 $frete = str_replace(',', '.', $frete);
 $id = $_POST['id'];
 
@@ -93,11 +95,11 @@ if($tipo_desconto == "%"){
 
 if($id == ""){
 	// $query = $pdo->prepare("INSERT INTO $tabela SET data = curDate(), cliente = '$cliente', data_entrega = '$data_entrega', dias_validade = '$dias_validade', valor = '$total_final', desconto = '$desconto', tipo_desconto = '$tipo_desconto', subtotal = '$total_com_desconto', funcionario = '$id_usuario', status = 'Pendente', total_produtos = '$total_produtos', total_servicos = '$total_servicos', obs = :obs, frete = :frete");
-	$query = $pdo->prepare("INSERT INTO $tabela SET data = curDate(), valor_entrada = '$valor_entrada', cliente = '$cliente', data_entrega = '$data_entrega', valor = '$total_final', desconto = '$desconto', tipo_desconto = '$tipo_desconto', subtotal = '$total_com_desconto', funcionario = '$id_usuario', status = 'Pendente', total_produtos = '$total_produtos', total_servicos = '$total_servicos', obs = :obs, frete = :frete");
+	$query = $pdo->prepare("INSERT INTO $tabela SET data = curDate(), valor_entrada = '$valor_entrada', saida = '$saida', vendedor = '$vendedor', cliente = '$cliente', data_entrega = '$data_entrega', valor = '$total_final', desconto = '$desconto', tipo_desconto = '$tipo_desconto', subtotal = '$total_com_desconto', funcionario = '$id_usuario', status = 'Aprovado', total_produtos = '$total_produtos', total_servicos = '$total_servicos', obs = :obs, frete = :frete");
 
 }else{
 	// $query = $pdo->prepare("UPDATE $tabela SET cliente = '$cliente', data_entrega = '$data_entrega', dias_validade = '$dias_validade', valor = '$total_final', desconto = '$desconto', tipo_desconto = '$tipo_desconto', subtotal = '$total_com_desconto', funcionario = '$id_usuario',  total_produtos = '$total_produtos', total_servicos = '$total_servicos', obs = :obs, frete = :frete where id = '$id'");
-	$query = $pdo->prepare("UPDATE $tabela SET valor_entrada = '$valor_entrada', cliente = '$cliente', data_entrega = '$data_entrega', valor = '$total_final', desconto = '$desconto', tipo_desconto = '$tipo_desconto', subtotal = '$total_com_desconto', funcionario = '$id_usuario',  total_produtos = '$total_produtos', total_servicos = '$total_servicos', obs = :obs, frete = :frete where id = '$id'");
+	$query = $pdo->prepare("UPDATE $tabela SET valor_entrada = '$valor_entrada', saida = '$saida', vendedor = '$vendedor',  cliente = '$cliente', data_entrega = '$data_entrega', valor = '$total_final', desconto = '$desconto', tipo_desconto = '$tipo_desconto', subtotal = '$total_com_desconto', funcionario = '$id_usuario',  total_produtos = '$total_produtos', total_servicos = '$total_servicos', obs = :obs, frete = :frete where id = '$id'");
 
 	
 }
@@ -113,6 +115,55 @@ $id_orcamento = $pdo->lastInsertId();
 }else{
 	$id_orcamento = $id;
 }
+
+//BAIXAR;
+if ($valor_entrada != 0){
+	$pdo->query("INSERT INTO receber SET descricao = 'Nova Venda',valor_entrada = '$valor_entrada', valor = '$total_com_desconto', data_venc = curDate(), data_lanc = curDate(), data_pgto = curDate(), usuario_lanc = '$id_usuario', usuario_pgto = '$id_usuario', saida = '$saida', vendedor = '$vendedor', arquivo = 'sem-foto.png', pago = 'Não', cliente = '$cliente', referencia = 'Venda', hora = curTime(), desconto = '$desconto', id_ref = '$id'");
+	$id_venda = $pdo->lastInsertId();	
+
+	$query20 = $pdo->query("SELECT id from receber order by id desc limit 1");
+	$res20 = $query20->fetchAll(PDO::FETCH_ASSOC);
+	$id_conta = $res20[0]['id'];
+    $pdo->query("INSERT INTO valor_parcial set id_conta = '$id_conta', tipo = 'Receber', valor = '$valor_entrada', data = curDate(), usuario = '$id_usuario'");
+ 
+
+
+}else{  
+	$pdo->query("INSERT INTO receber SET descricao = 'Nova Venda',valor_entrada = '$valor_entrada', valor = '$total_com_desconto', data_venc = curDate(), data_lanc = curDate(), data_pgto = curDate(), usuario_lanc = '$id_usuario', usuario_pgto = '$id_usuario', saida = '$saida', vendedor = '$vendedor', arquivo = 'sem-foto.png', pago = 'Sim', cliente = '$cliente', referencia = 'Venda', hora = curTime(), desconto = '$desconto', id_ref = '$id'");
+	$id_venda = $pdo->lastInsertId();
+	
+	// $pdo->query("INSERT INTO receber SET descricao = 'Nova Venda',valor_entrada = '$valor_entrada', valor = '$total_com_desconto', data_venc = curDate(), data_lanc = curDate(), usuario_lanc = '$id_usuario', arquivo = 'sem-foto.png', pago = 'Não', cliente = '$cliente', referencia = 'Venda', hora = curTime(), desconto = '$desconto', id_ref = '$id'");
+	// $id_venda = $pdo->lastInsertId();
+}
+
+
+
+		
+		$query2 = $pdo->query("SELECT * from produtos_orc where orcamento = '$id_orcamento'");
+		$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+		$linhas2 = @count($res2);
+		for($i=0; $i<$linhas2; $i++){
+		$id_pro_orc = $res2[$i]['id'];
+		$id_produto = $res2[$i]['produto'];
+		$quantidade = $res2[$i]['quantidade'];
+		$valor_prod = $res2[$i]['valor'];
+		$total_prod = $res2[$i]['total'];
+
+		$pdo->query("INSERT INTO itens_venda SET produto = '$id_produto', valor = '$valor_prod', quantidade = '$quantidade', total = '$total_prod', id_venda = '$id_venda', funcionario = '$id_usuario'");
+
+		$query7 = $pdo->query("SELECT * from produtos where id = '$id_produto'");
+		$res7 = $query7->fetchAll(PDO::FETCH_ASSOC);
+		$estoque = $res7[0]['estoque'];
+
+		$novo_estoque = $estoque - $quantidade;
+		//remove o produto do estoque
+		$pdo->query("UPDATE produtos SET estoque = '$novo_estoque' WHERE id = '$id_produto'"); 
+
+
+	}
+
+
+//BAIXAR
 
 echo 'Salvo com Sucesso-'.$id_orcamento; 
 
@@ -140,5 +191,4 @@ if($api_whatsapp == 'Sim'){
 
 	require('../../../apis/api_texto.php');
 }	
-
 ?>

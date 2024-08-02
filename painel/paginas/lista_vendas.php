@@ -159,7 +159,7 @@ if(@$lista_vendas == 'ocultar'){
 						<div class="row">
 							<div class="col-md-6">
 								<div class="mb-3">
-									<label for="exampleFormControlInput1" class="form-label">Valor <small class="text-muted">(Total ou Parcial)</small></label>
+									<label for="exampleFormControlInput1" class="form-label">Valor	 <small class="text-muted">(Total ou Parcial)</small></label>
 									<input onkeyup="totalizar()" type="text" class="form-control" name="valor-baixar"  id="valor-baixar" required>
 								</div>
 							</div>

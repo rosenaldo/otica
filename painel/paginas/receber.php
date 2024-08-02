@@ -440,11 +440,11 @@ if(@$receber == 'ocultar'){
 
 
 	<!-- Modal -->
-	<div class="modal fade" id="modalBaixar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="modalWarning: Undefined variable $res2 in C:\xampp\htdocs\otica\painel\paginas\os\listar.php on line 114" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title" id="tituloModal">Baixar Conta: <span id="descricao-baixar"> </span></h4>
+					<h4 class="modal-title" id="tituloModal">Warning: Undefined variable $res2 in C:\xampp\htdocs\otica\painel\paginas\os\listar.php on line 114 Conta: <span id="descricao-baixar"> </span></h4>
 					<button id="btn-fechar-baixar" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px">
 						<span aria-hidden="true">&times;</span>
 					</button>

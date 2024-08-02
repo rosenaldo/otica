@@ -15,6 +15,9 @@ if(@$orcamentos == 'ocultar'){
 		<div style="float:left; margin-right:35px">
 			<button onclick="inserir()" type="button" class="btn btn-primary btn-flat btn-pri"><i class="fa fa-plus" aria-hidden="true"></i>Vendas</button>
 		</div>
+		<div style="float:left; margin-right:35px">
+		    <a href="vendas" class="btn btn-primary btn-flat btn-pri" role="button"> <i class="fa fa-plus" aria-hidden="true"></i> Testando Vendas</a>
+		</div>
 
 		<form method="POST" action="rel/lista_orcamentos_class.php" target="_blank">
 		<div class="esc" style="float:left; margin-right:10px"><span><small><i title="Data de Vencimento Inicial" class="fa fa-calendar-o"></i></small></span>
@@ -229,26 +232,6 @@ if(@$orcamentos == 'ocultar'){
 								</select>
 						</div>
 
-						<div class="col-md-5">
-								
-								<label>Vendedor</label> 
-								<select class="form-control sel3" name="vendedor" id="vendedor" required style="width:100%; height:32px" required>
-								<option value="">Selecionar Vendedor</option>
-								<option value="0">Nenhum</option>		
-								<?php 
-								$query = $pdo->query("SELECT * FROM usuarios where nivel != 'Cliente' and nivel != 'Administrador' order by id asc");
-								$res = $query->fetchAll(PDO::FETCH_ASSOC);
-								for($i=0; $i < @count($res); $i++){
-									foreach ($res[$i] as $key => $value){}
-
-										?>	
-									<option value="<?php echo $res[$i]['id'] ?>"><?php echo $res[$i]['nome'] ?></option>
-
-								<?php } ?>
-
-							</select>
-						
-						</div>
 
 					</div>	
 
@@ -749,7 +732,6 @@ function excluirServico(id){
 
 
 // salvar vendas
-
 
 $("#form_orcamento").submit(function () {
 

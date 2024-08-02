@@ -116,6 +116,7 @@ $obs = $res[$i]['obs'];
 $referencia = $res[$i]['referencia'];
 $parcela = $res[$i]['parcela'];
 $id_ref = $res[$i]['id_ref'];
+$valor_entrada = $res[$i]['valor_entrada'];
 
 //extensão do arquivo
 $ext = pathinfo($arquivo, PATHINFO_EXTENSION);

@@ -412,13 +412,14 @@ if($total > 0){
 			</div>
 		</div>
 		</a>
-		<a href="vendas">
+		<a href="lista_vendas">
 		<div class="col-md-3 widget margem_10_web">
 			<div class="r3_counter_box">
 				<i class="pull-left fa fa-dollar dollar2 icon-rounded"></i>
 				<div class="stats">
 					<h5><strong><span style="font-size: 19px; color:#000">R$ <?php echo $vendas_hoje_rsF ?></span></strong></h5>
-					<span><span style="font-size: 13px; color:#424242">(<?php echo $vendas_hoje ?>) Vendas Hoje</span></span>
+					<!-- <span><span style="font-size: 13px; color:#424242">(<?php echo $vendas_hoje ?>) Warning: Undefined variable $res2 in C:\xampp\htdocs\otica\painel\paginas\os\listar.php on line 114</span></span> -->
+					<span><span style="font-size: 13px; color:#424242">(<?php echo $vendas_hoje ?>) Vendas de hoje</span></span>
 				</div>
 			</div>
 		</div>
