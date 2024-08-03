@@ -109,7 +109,8 @@ if($valor == $valor_antigo){
 	$pdo->query("INSERT INTO valor_parcial set id_conta = '$id', tipo = 'Receber', valor = '$subtotal', data = curDate(), usuario = '$id_usuario'");
 
 	$pdo->query("UPDATE $tabela set saida = '$saida', usuario_pgto = '$id_usuario', valor = '$valor_antigo', data_pgto = curDate() where id = '$id'");
-
+	
+		
 }
 
 echo 'Baixado com Sucesso';

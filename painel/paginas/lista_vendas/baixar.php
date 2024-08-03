@@ -124,11 +124,13 @@ if($valor == $valor_antigo){
 		}
 	}
 
-	$valor_antigo = $valor_antigo - $subtotal;
+	 $valor_antigo = $valor_antigo - $subtotal;
 
 	$pdo->query("INSERT INTO valor_parcial set id_conta = '$id', tipo = 'Receber', valor = '$subtotal', data = curDate(), usuario = '$id_usuario'");
 
 	$pdo->query("UPDATE $tabela set saida = '$saida', usuario_pgto = '$id_usuario', valor = '$valor_antigo', data_pgto = curDate() where id = '$id'");
+
+	$pdo->query("INSERT INTO $tabela SET descricao = 'Valor baixado',valor_entrada = '0', valor = '$subtotal', data_venc = curDate(), data_lanc = curDate(), data_pgto = curDate(), usuario_lanc = '$id_usuario', usuario_pgto = '$id_usuario', saida = '$saida', vendedor = '$vendedor', arquivo = 'sem-foto.png', pago = 'Sim', cliente = '$cliente', referencia = 'Venda', hora = curTime(), desconto = '0', id_ref = '$id'");
 
 }
 

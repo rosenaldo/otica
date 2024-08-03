@@ -71,6 +71,7 @@ echo <<<HTML
 			<tr> 				
 				<th>Descrição</th>
 				<th class="esc">Valor</th> 
+				<!-- <th class="esc">Valor Entrada</th>  -->
 				<th class="esc">Cliente</th>
 				<th class="esc">Vendedor</th>
 				<th class="esc">Efetuada</th> 
@@ -99,6 +100,7 @@ $pago = $res[$i]['pago'];
 $obs = $res[$i]['obs'];
 $cancelada = $res[$i]['cancelada'];
 $vendedor = $res[$i]['vendedor'];
+$valor_entrada = $res[$i]['valor_entrada'];
 
 //extensão do arquivo
 $ext = pathinfo($arquivo, PATHINFO_EXTENSION);
@@ -116,6 +118,7 @@ $data_lancF = implode('/', array_reverse(@explode('-', $data_lanc)));
 $data_vencF = implode('/', array_reverse(@explode('-', $data_venc)));
 $data_pgtoF = implode('/', array_reverse(@explode('-', $data_pgto)));
 $valorF = number_format($valor, 2, ',', '.');
+$valor_entradaF = number_format($valor_entrada, 2, ',', '.');
 
 $query2 = $pdo->query("SELECT * FROM usuarios where id = '$usuario_lanc'");
 $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
@@ -219,6 +222,7 @@ echo <<<HTML
 			<tr> 
 				<td><i class="fa fa-square {$classe_pago} mr-1"></i> {$descricao}</td> 
 					<td class="esc">R$ {$valorF} <small><a href="#" onclick="mostrarResiduos('{$id}')" class="text-danger" title="Ver Resíduos">{$vlr_antigo_conta}</a></small></td>	
+					<!-- <td class="esc">{$valor_entradaF}</td> -->
 					<td class="esc">{$nome_pessoa}</td>
 					<td class="esc">{$nome_vendedor}</td>
 					<td class="esc">{$data_lancF}</td>
@@ -242,7 +246,7 @@ echo <<<HTML
 
 					<big><a class="{$ocultar}" href="#" onclick="parcelar('{$id}', '{$valor}', '{$descricao}')" title="Parcelar Conta"><i class="fa fa-calendar-o " style="color:#7f7f7f"></i></a></big>
 
-					<big><a class="{$ocultar}" href="#" onclick="baixar('{$id}', '{$valor}', '{$descricao}', '{$saida}')" title="Baixar Conta"><i class="fa fa-check-square " style="color:#079934"></i></a></big>
+					<big><a class="{$ocultar}" href="#" onclick="baixar('{$id}', '{$valor}', '{$descricao}', '{$saida}')" title="Baixard Conta"><i class="fa fa-check-square " style="color:#079934"></i></a></big>
 
 
 					<big><a href="#" onclick="arquivo('{$id}', '{$descricao}')" title="Inserir / Ver Arquivos"><i class="fa fa-file-o " style="color:#22146e"></i></a></big>

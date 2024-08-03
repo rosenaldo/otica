@@ -118,6 +118,9 @@ $id_orcamento = $pdo->lastInsertId();
 
 //BAIXAR;
 if ($valor_entrada != 0){
+	$pdo->query("INSERT INTO receber SET descricao = 'Valor de entrada',valor_entrada = '$valor_entrada', valor = '$valor_entrada', data_venc = curDate(), data_lanc = curDate(), data_pgto = curDate(), usuario_lanc = '$id_usuario', usuario_pgto = '$id_usuario', saida = '$saida', vendedor = '$vendedor', arquivo = 'sem-foto.png', pago = 'Sim', cliente = '$cliente', referencia = 'Venda', hora = curTime(), desconto = '$desconto', id_ref = '$id'");
+	$id_venda = $pdo->lastInsertId();	
+
 	$pdo->query("INSERT INTO receber SET descricao = 'Nova Venda',valor_entrada = '$valor_entrada', valor = '$total_com_desconto', data_venc = curDate(), data_lanc = curDate(), data_pgto = curDate(), usuario_lanc = '$id_usuario', usuario_pgto = '$id_usuario', saida = '$saida', vendedor = '$vendedor', arquivo = 'sem-foto.png', pago = 'Não', cliente = '$cliente', referencia = 'Venda', hora = curTime(), desconto = '$desconto', id_ref = '$id'");
 	$id_venda = $pdo->lastInsertId();	
 
@@ -135,9 +138,6 @@ if ($valor_entrada != 0){
 	// $pdo->query("INSERT INTO receber SET descricao = 'Nova Venda',valor_entrada = '$valor_entrada', valor = '$total_com_desconto', data_venc = curDate(), data_lanc = curDate(), usuario_lanc = '$id_usuario', arquivo = 'sem-foto.png', pago = 'Não', cliente = '$cliente', referencia = 'Venda', hora = curTime(), desconto = '$desconto', id_ref = '$id'");
 	// $id_venda = $pdo->lastInsertId();
 }
-
-
-
 		
 		$query2 = $pdo->query("SELECT * from produtos_orc where orcamento = '$id_orcamento'");
 		$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
